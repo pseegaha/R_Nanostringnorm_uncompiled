@@ -1,1 +1,3 @@
 # R_Nanostringnorm_uncompiled
+The refined version of this code will be updated soon...
+Give it a run, make sure your working directories are set..Any queries feel free to message
