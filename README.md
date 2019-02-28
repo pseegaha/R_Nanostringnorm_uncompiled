@@ -89,10 +89,10 @@ groups <- c("Group1", "Group1", "Group1", "Group1", "Group2", "Group2", "Group2"
 my_cutoff = 3
 
 # Plot group-wise boxplot (log count values)
-plotGroupBoxplot(nano, groups, title="my_title", countCutoff=my_cutoff)
+plotGroupBoxplot(df, groups, title="my_title", countCutoff=my_cutoff)
 
 # Plot scaled Heatmap of expression values
-plotHeatmapExpression(nano, groups, countCutoff=my_cutoff)
+plotHeatmapExpression(df, groups, countCutoff=my_cutoff)
 
 # Plot a PCA
 plotPCA(df, groups, countCutoff=my_cutoff)
