@@ -14,7 +14,7 @@ library(NanoStringNorm)
 This package contains functions for parsing, handling, quality control and analyzation of data created on the
 NanoString nCounter system in the form of RCC files.
 
-## Reading File 
+# Reading File 
 It is best to store all the RCC files (obtained from the NanoString's nCounter system) of interest in a separate directory, or at least with in a directory with no RCC files
 from other experiments. The read.markup.RCC() function will then allow to transfer your files into a df object:
 ```
@@ -24,10 +24,10 @@ df <-read.markup.RCC(rcc.path = "path/to/RCC/directory/",rcc.pattern = "*.RCC|*.
 The df object is a list containing the raw counts and the header from each RCC file. After normalization, other 
 objects will be attached to it, e.g. normalization factors.
 
-## Normalising Nanostring data
+### Normalising Nanostring data
 This is a quick R guide to learn about Nanostring technology (nCounter) and how to pre-process the data profiled on this platform.
 
-### Description
+## Description
 The nCounter system from Nanostring Technologies is a direct, reliable and highly sensitive multiplexed measurement of nucleic acids (DNA and RNA) based on a novel digital barcode technology. It involves Custom Codeset of genes or off-the-shelf preassembled panels and on single cell (more details on NanoString website).
 
 Each mRNA Expression CodeSet contains probes designed against fourteen ERCC transcript sequences.
@@ -41,7 +41,7 @@ Each mRNA Expression CodeSet contains probes designed against fourteen ERCC tran
 Note:  Read the nCounter guide available in the the link for more
 details: (https://www.nanostring.com/application/files/1214/8942/4642/MAN-C0011-03_nCounter_Gene_Expression_Data_Analysis_Guidelines.pdf)
 
-### Load the dataset
+# Load the dataset
 The data produced by the nCounter Digital Analyzer (nanostring) are exported as a Reporter Code Count (RCC) file which is a comma-separated text (.csv) file that contains the counts for each gene in a sample. Each cartridge has 12 lanes  i.e. 12 samples can be profiled on one nanostring cartridge.
 
 For processing the data one can apply the normalization steps recommended by the company (using NanoStringNorm R package). Alternatively, the data can be treated as regular digital counts (RNA-seq) and can be analysed using edgeR TMM normalisation approach. However, in our experience former works better then the latter as it accounts for cross-hybridization related biases by allowing user to do background correction.
