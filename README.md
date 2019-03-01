@@ -24,7 +24,7 @@ df <-read.markup.RCC(rcc.path = "path/to/RCC/directory/",rcc.pattern = "*.RCC|*.
 The df object is a list containing the raw counts and the header from each RCC file. After normalization, other 
 objects will be attached to it, e.g. normalization factors.
 
-# Normalising Nanostring data
+### Normalising Nanostring data
 This is a quick R guide to learn about Nanostring technology (nCounter) and how to pre-process the data profiled on this platform.
 
 ## Description
