@@ -48,30 +48,30 @@ For processing the data one can apply the normalization steps recommended by the
 
 You can read the RCC files in two different ways i.e.use the excel import function read.xls.RCC to read directly from nCounter output files if provided in .xls format by the facility. However, do ensure that you are using the worksheet with the raw counts and not something that has been processed. An example dataset can be downloaded from GEO (GSE51488).
 
-## read the raw counts from the RCC excel spreadsheet output by the nCounter platform
+## Read the raw counts from the RCC excel spreadsheet output by the nCounter platform
 ```df <-read.xls.RCC("GSE51488_GAMA_Nanostring_RAW_Spleen_1.xls", sheet = 1)```
 or,
 
 you can use the following to process single sample markup RCC files (example:GSE95100) and merge the individual .RCC files together in one variable.
 
-## read the raw counts from individual RCC files from the directory (path of .RCC files )
+## Read the raw counts from individual RCC files from the directory (path of .RCC files )
 ```df <-read.markup.RCC(rcc.path = ".",rcc.pattern = "*.RCC|*.rcc",exclude = NULL,include = NULL,nprobes = -1)```
 Pre-processing
 Firstly, remove systemic biases by using geometric mean.
 
-## use geometric mean for technical normalisation
+## Use geometric mean for technical normalisation
 ```all_samples_gm <- NanoStringNorm(x = df,anno = NA,CodeCount = 'geo.mean',Background = 'none',SampleContent = 'none', round.values = FALSE, take.log =FALSE,return.matrix.of.endogenous.probes =FALSE)```
 Then, correct for cross-hybridization and normalise for sample variability by using background correction and house keeping genes respectively.
 
-## use housekeeping genes along with background correction(mean+2SD) for biological normalisation---#
+## Use housekeeping genes along with background correction(mean+2SD) for biological normalisation---#
 ```normalised_df <- NanoStringNorm(x = all_samples_gm,anno = NA,CodeCount = 'none',Background = 'mean.2sd',SampleContent = 'housekeeping.geo.mean', round.values = FALSE,is.log = FALSE, take.log = TRUE, return.matrix.of.endogenous.probes = TRUE )```
 This returns the normalised values in log2 scale. If you want the data to be on linear scale then change take.log = FALSE
 
-## save the normalised data in a file---#
+## Save the normalised data in a file---#
 ```write.table(normalised_df,"Normalised_data_nanostring.csv",sep=",",quote=F,row.names = T,col.names = T)```
 The information about the R packages can be found below.
 
-## print the package versions used ---#
+## Print the package versions used ---#
 ```sessionInfo()```
 
 ## Background Correction and Positive Control Normalization
