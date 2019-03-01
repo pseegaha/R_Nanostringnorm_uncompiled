@@ -7,14 +7,14 @@ git clone https://github.com/pseegaha/R_Nanostringnorm_uncompiled.git
 ```
 install.packages("R_Nanostringnorm_uncompiled/",repos=NULL,type="source")
 ```
-# Load the required R packages
+## Load the required R packages
 library(NanoStringNorm)
 
-# Handling and analyzation of NanoString data
+## Handling and analyzation of NanoString data
 This package contains functions for parsing, handling, quality control and analyzation of data created on the
 NanoString nCounter system in the form of RCC files.
 
-# Reading File 
+## Reading File 
 It is best to store all the RCC files (obtained from the NanoString's nCounter system) of interest in a separate directory, or at least with in a directory with no RCC files
 from other experiments. The read.markup.RCC() function will then allow to transfer your files into a df object:
 ```
@@ -41,37 +41,37 @@ Each mRNA Expression CodeSet contains probes designed against fourteen ERCC tran
 Note:  Read the nCounter guide available in the the link for more
 details: (https://www.nanostring.com/application/files/1214/8942/4642/MAN-C0011-03_nCounter_Gene_Expression_Data_Analysis_Guidelines.pdf)
 
-# Load the dataset
+## Load the dataset
 The data produced by the nCounter Digital Analyzer (nanostring) are exported as a Reporter Code Count (RCC) file which is a comma-separated text (.csv) file that contains the counts for each gene in a sample. Each cartridge has 12 lanes  i.e. 12 samples can be profiled on one nanostring cartridge.
 
 For processing the data one can apply the normalization steps recommended by the company (using NanoStringNorm R package). Alternatively, the data can be treated as regular digital counts (RNA-seq) and can be analysed using edgeR TMM normalisation approach. However, in our experience former works better then the latter as it accounts for cross-hybridization related biases by allowing user to do background correction.
 
 You can read the RCC files in two different ways i.e.use the excel import function read.xls.RCC to read directly from nCounter output files if provided in .xls format by the facility. However, do ensure that you are using the worksheet with the raw counts and not something that has been processed. An example dataset can be downloaded from GEO (GSE51488).
 
-# read the raw counts from the RCC excel spreadsheet output by the nCounter platform
+## read the raw counts from the RCC excel spreadsheet output by the nCounter platform
 ```df <-read.xls.RCC("GSE51488_GAMA_Nanostring_RAW_Spleen_1.xls", sheet = 1)```
 or,
 
 you can use the following to process single sample markup RCC files (example:GSE95100) and merge the individual .RCC files together in one variable.
 
-# read the raw counts from individual RCC files from the directory (path of .RCC files )
+## read the raw counts from individual RCC files from the directory (path of .RCC files )
 ```df <-read.markup.RCC(rcc.path = ".",rcc.pattern = "*.RCC|*.rcc",exclude = NULL,include = NULL,nprobes = -1)```
 Pre-processing
 Firstly, remove systemic biases by using geometric mean.
 
-# use geometric mean for technical normalisation
+## use geometric mean for technical normalisation
 ```all_samples_gm <- NanoStringNorm(x = df,anno = NA,CodeCount = 'geo.mean',Background = 'none',SampleContent = 'none', round.values = FALSE, take.log =FALSE,return.matrix.of.endogenous.probes =FALSE)```
 Then, correct for cross-hybridization and normalise for sample variability by using background correction and house keeping genes respectively.
 
-# use housekeeping genes along with background correction(mean+2SD) for biological normalisation---#
+## use housekeeping genes along with background correction(mean+2SD) for biological normalisation---#
 ```normalised_df <- NanoStringNorm(x = all_samples_gm,anno = NA,CodeCount = 'none',Background = 'mean.2sd',SampleContent = 'housekeeping.geo.mean', round.values = FALSE,is.log = FALSE, take.log = TRUE, return.matrix.of.endogenous.probes = TRUE )```
 This returns the normalised values in log2 scale. If you want the data to be on linear scale then change take.log = FALSE
 
-# save the normalised data in a file---#
+## save the normalised data in a file---#
 ```write.table(normalised_df,"Normalised_data_nanostring.csv",sep=",",quote=F,row.names = T,col.names = T)```
 The information about the R packages can be found below.
 
-# print the package versions used ---#
+## print the package versions used ---#
 ```sessionInfo()```
 
 ## Background Correction and Positive Control Normalization
@@ -95,9 +95,9 @@ plotFOV(df)
 plotPositiveScalingFactors(df)
 ```
 
-## Content Normalization
+# Content Normalization
 
-### Decision over normalization method
+## Decision over normalization method
 Currently, three different methods are implemented for content normalization: top100, housekeeping and total (aka global).
 The primary choice of the normalizaton method should be dependent on the experimental design. Generally, the following should be considered:
 
@@ -124,7 +124,7 @@ Where groups is a vector that assigns every sample to a specific group. The func
 for every normalization and for the un-normalized counts. A smaller ratio after normalization implies better clustering of the groups. If groups are expected to be very different,
 then this might be of interest.
 
-### Normalization
+## Normalization
 After a content normalization method has been chosen, the counts can be normalized using the following function (houseekping normalization):
 ```
 df <- nsNormalize(df, method="housekeeping")
